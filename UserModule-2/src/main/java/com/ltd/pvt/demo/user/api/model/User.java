@@ -19,7 +19,7 @@ public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private String userid;
+	private BigInteger userid;
 
 	private String address;
 
@@ -46,11 +46,11 @@ public class User implements Serializable {
 	public User() {
 	}
 
-	public String getUserid() {
+	public BigInteger getUserid() {
 		return this.userid;
 	}
 
-	public void setUserid(String userid) {
+	public void setUserid(BigInteger userid) {
 		this.userid = userid;
 	}
 
