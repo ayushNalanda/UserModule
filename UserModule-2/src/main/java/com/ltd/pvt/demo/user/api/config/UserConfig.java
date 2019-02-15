@@ -14,6 +14,7 @@ import com.ltd.pvt.demo.user.api.dto.UserSignin;
 import com.ltd.pvt.demo.user.api.dto.UserSignup;
 import com.ltd.pvt.demo.user.api.model.User;
 
+import io.swagger.models.auth.In;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -21,6 +22,21 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+
+/**
+ * 
+ * 1   Integrate the  Swagger Documentation
+ * 
+ * 2   Convert the POJO to POJO with Adapter method develop as below listed
+ *      public User convertDtoToModel(UserSignup dto)
+ *      public User convertSigninToModel(UserSignin signin)
+ *      public UserDetail convertModelToUserDetail(User model)
+ *      public UserSignup convertModelToDto(User model)
+ * 
+ * 
+ * 
+ * 
+ * */
 @Configuration
 @EnableSwagger2
 public class UserConfig {
@@ -41,7 +57,16 @@ public class UserConfig {
 	
 	private ApiInfo apiInfo() {
 		log.info("UserConfig.apiInfo()");
-		return new ApiInfoBuilder().title("User Service").build();
+		return new ApiInfoBuilder().
+				title("User Service")
+				.description("\"Spring Boot REST API for UserModule Application\"")
+                .version("1.0.0")
+                .license("Apache License Version 2.0")
+                .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0\"")
+                .contact("    aaush0101@gmail.com     "
+                +"9121772537       "
+                +"https://github.com/ayushNalanda/UserModule     ")
+                .build();
 	}
 	
 	public User convertDtoToModel(UserSignup dto) {
