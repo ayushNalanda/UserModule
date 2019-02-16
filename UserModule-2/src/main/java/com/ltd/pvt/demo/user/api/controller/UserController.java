@@ -23,6 +23,7 @@ import com.ltd.pvt.demo.user.api.exception.UserAlreadyExistException;
 import com.ltd.pvt.demo.user.api.exception.UserNotFoundException;
 import com.ltd.pvt.demo.user.api.exception.UsernameAndPasswordNotMatchException;
 import com.ltd.pvt.demo.user.api.service.UserService;
+import com.ltd.pvt.demo.user.api.utility.RegularExpressionPattern;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -48,10 +49,6 @@ import io.swagger.annotations.ApiResponses;
 @Api(value="User Service")
 public class UserController {
 	
-	private static final String EMAIL_PATTERN = 
-			                                    "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-			                                     + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-
 	private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired(required=true)
@@ -63,7 +60,7 @@ public class UserController {
 		
 		log.debug("UserController.getUser()");
 		//check pathvariable as email
-		if(!username.matches(EMAIL_PATTERN)) 
+		if(!username.matches(RegularExpressionPattern.EMAIL_PATTERN)) 
 		     throw new RuntimeException("InValid Username Format as Email { username : "+username+"  }");
 		return userService.searchUser(username);	
 	}//end of method

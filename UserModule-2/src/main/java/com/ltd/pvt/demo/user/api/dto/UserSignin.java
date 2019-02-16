@@ -4,13 +4,12 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+
+import com.ltd.pvt.demo.user.api.utility.RegularExpressionPattern;
 
 import io.swagger.annotations.ApiModelProperty;
 
 public class UserSignin {
-	
-	private static final String REG_EXP_PASSWORD   =  "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z0-9@$!%*?&]{6,15}$";
 	
 	
 	@Email(message=" should be email formate")
@@ -19,7 +18,7 @@ public class UserSignin {
 	
 	@NotNull(message="Password can not be null")
 	@NotEmpty(message="Password can not be empty")
-	@Pattern(regexp=REG_EXP_PASSWORD,
+	@Pattern(regexp=RegularExpressionPattern.REG_EXP_PASSWORD,
 	message="Password Must  Be Between 6 To 15 Character Include Atleast "
 			+ " One LowerCase, UpperCase, Digits, and Special Character")
 	@ApiModelProperty(value="Password", required=true)
