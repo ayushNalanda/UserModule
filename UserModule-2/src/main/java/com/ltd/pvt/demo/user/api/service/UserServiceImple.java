@@ -25,6 +25,8 @@ import com.ltd.pvt.demo.user.api.exception.UserNotExistException;
 import com.ltd.pvt.demo.user.api.exception.UserNotFoundException;
 import com.ltd.pvt.demo.user.api.exception.UsernameAndPasswordNotMatchException;
 import com.ltd.pvt.demo.user.api.model.User;
+
+import javax.servlet.http.HttpServletRequest;
 /**
  * 
  * 
@@ -50,7 +52,10 @@ public class UserServiceImple implements UserService {
 	private UserAdaptor adaptor;
 	
 	private Predicate<User> p = user -> user==null;
-	
+	@Autowired
+	HttpServletRequest request;
+	@Autowired
+    private LoginAttemptService loginAttemptService;
 	
 	public UserDetail searchUser(String userName) throws UserNotFoundException {
 		User model=null;
@@ -97,9 +102,15 @@ public class UserServiceImple implements UserService {
 	
 	public String signin(UserSignin signin) throws Exception  {
 		User isUser=null,model=null;
+		String ip=null;
 		boolean match=false;
 		log.debug("UserService.signin()");
 		try {
+			
+			 ip = getClientIP();
+	        if (loginAttemptService.isBlocked(ip)) {
+	            throw new RuntimeException("You are  blocked ");
+	        }
 			//convert dto to model
 			model=adaptor.convertSignin(signin);
 			
@@ -142,6 +153,15 @@ public class UserServiceImple implements UserService {
 		 throw new RuntimeException(" Internal Server Problem   "+e.getMessage());
 		}//end of try & catch
 	}//end of method
+	
+	
+	 private String getClientIP() {
+	        String xfHeader = request.getHeader("X-Forwarded-For");
+	        if (xfHeader == null) {
+	            return request.getRemoteAddr();
+	        }
+	        return xfHeader.split(",")[0];
+	    }
 	
 
 }//end of class
