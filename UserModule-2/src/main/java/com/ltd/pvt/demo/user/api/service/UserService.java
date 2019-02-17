@@ -23,7 +23,7 @@ public interface UserService {
 	
 	 public UserDetail searchUser(String userName) throws UserNotFoundException;
 	 public String signup(UserSignup dto) throws UserAlreadyExistException;
-	 public String signin(UserSignin signin) throws UsernameAndPasswordNotMatchException;
+	 public String signin(UserSignin signin) throws Exception;
 	 public List<String> fetchAllUsername() throws UserNotFoundException;
 
 }

@@ -27,12 +27,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * 
  * 1   Integrate the  Swagger Documentation
  * 
- * 2   Convert the POJO to POJO with Adapter method develop as below listed
- *      public User convertDtoToModel(UserSignup dto)
- *      public User convertSigninToModel(UserSignin signin)
- *      public UserDetail convertModelToUserDetail(User model)
- *      public UserSignup convertModelToDto(User model)
- * 
+ *   
  * 
  * 
  * 
@@ -69,51 +64,6 @@ public class UserConfig {
                 .build();
 	}
 	
-	public User convertDtoToModel(UserSignup dto) {
-		User model=null;
-		log.debug("UserConfig.convertDtoToModel()");
-		model=new User();
-		model.setFirstName(dto.getFirsrname());
-		model.setLastName(dto.getLastname());
-		model.setUsername(dto.getUsername());
-		model.setContact(new BigInteger(dto.getContact()));
-		model.setAddress(dto.getAddress());
-		model.setPassword(dto.getPassword());
-		return model;
-	}
 	
-	public UserSignup convertModelToDto(User model) {
-		UserSignup dto=null;
-		log.debug("UserConfig.convertModelToDto()");
-		dto=new UserSignup();
-		dto.setUsername(model.getUsername());
-		dto.setFirsrname(model.getUsername());
-		dto.setLastname(model.getLastName());
-		dto.setContact(model.getContact().toString());
-		dto.setAddress(model.getAddress());
-		dto.setPassword("***********");
-		return dto;
-	}
-	
-	public User convertSigninToModel(UserSignin signin) {
-		User model=null;
-		log.debug("UserConfig.convertSigninToModel()");
-		model=new User();
-		model.setUsername(signin.getUsername());
-		model.setPassword(signin.getPassword());
-		return model;
-	}
-	
-	public UserDetail convertModelToUserDetail(User model) {
-		UserDetail  detail =null;
-		log.debug("UserConfig.convertModelToUserDetail()");
-		detail=new UserDetail();
-		detail.setFirstname(model.getFirstName());
-		detail.setLastname(model.getLastName());
-		detail.setUsername(model.getUsername());
-		detail.setAddress(model.getAddress());
-		detail.setContact(model.getContact().toString());
-		return detail;
-	}
 
 }

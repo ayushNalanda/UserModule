@@ -79,7 +79,7 @@ public class UserController {
 	
 	@PostMapping("/signin")
 	@ApiOperation(value="Signin")
-	public ResponseEntity signin(@Valid @RequestBody UserSignin signin) throws UsernameAndPasswordNotMatchException {
+	public ResponseEntity signin(@Valid @RequestBody UserSignin signin) throws Exception {
 		log.debug("UserController.signin() ");
 		// return success message
 		 return new ResponseEntity( userService.signin(signin), HttpStatus.ACCEPTED);

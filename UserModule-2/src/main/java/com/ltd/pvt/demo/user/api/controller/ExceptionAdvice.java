@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.ltd.pvt.demo.user.api.dto.UserError;
 import com.ltd.pvt.demo.user.api.exception.UserAlreadyExistException;
+import com.ltd.pvt.demo.user.api.exception.UserNotExistException;
 import com.ltd.pvt.demo.user.api.exception.UserNotFoundException;
 import com.ltd.pvt.demo.user.api.exception.UsernameAndPasswordNotMatchException;
 
@@ -52,6 +53,13 @@ public class ExceptionAdvice {
 	
 	@ExceptionHandler(UserAlreadyExistException.class)
 	public ResponseEntity<UserError> mapException(UserAlreadyExistException ex){
+		log.error("ExceptionAdvice.mapException()   "+ex.getMessage());
+		UserError error=new UserError(HttpStatus.NOT_ACCEPTABLE.value(),ex.getMessage());
+		return new ResponseEntity<UserError>(error,HttpStatus.NOT_ACCEPTABLE);
+	}//end of method
+	
+	@ExceptionHandler(UserNotExistException.class)
+	public ResponseEntity<UserError> mapException(UserNotExistException ex){
 		log.error("ExceptionAdvice.mapException()   "+ex.getMessage());
 		UserError error=new UserError(HttpStatus.NOT_ACCEPTABLE.value(),ex.getMessage());
 		return new ResponseEntity<UserError>(error,HttpStatus.NOT_ACCEPTABLE);
